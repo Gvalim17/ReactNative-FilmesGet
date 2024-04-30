@@ -9,9 +9,13 @@ const GenerosSemelhantes = () => {
 
   const buscarFilmesByGenero = async () => {
     try {
+      if (genre.trim() === '') {
+        Alert.alert('Erro', 'Por favor, insira um gênero antes de buscar filmes.');
+        return;
+      }
+
       const resp = await axios.get('http://10.136.63.193:3000/filmes');
       const filmeDb = resp.data;
-  
       const filtroFilme = filmeDb.filter(movie => movie.Genre.toLowerCase().includes(genre.toLowerCase()));
   
       if (filtroFilme.length > 0) {
@@ -28,7 +32,7 @@ const GenerosSemelhantes = () => {
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Insira o gênero do filme:</Text>
+      <Text>Insira o gênero do filme</Text>
       <TextInput
         style={{ height: 40, width: 200, borderColor: 'gray', borderWidth: 1, marginTop: 10, marginBottom: 10 }}
         onChangeText={text => setGenre(text)}
