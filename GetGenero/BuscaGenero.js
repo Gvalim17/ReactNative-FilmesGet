@@ -16,7 +16,12 @@ const GenerosSemelhantes = () => {
 
       const resp = await axios.get('http://10.136.63.193:3000/filmes');
       const filmeDb = resp.data;
-      const filtroFilme = filmeDb.filter(movie => movie.Genre.toLowerCase().includes(genre.toLowerCase()));
+      // Fiz uma alteração nesse include vou deixar esse codigo caso queira julgar baseado no que entreguei no horario da aula
+      // const filtroFilme = filmeDb.filter(movie => movie.Genre.toLowerCase().includes(genre.toLowerCase())); 
+
+      //A unica alteracao foi o uso do split para separar a string e pegar apenas os genereos isolados.
+      const filtroFilme = filmeDb.filter(movie => movie.Genre.toLowerCase().split(',').map(espacos => espacos.trim()).includes(genre.toLowerCase()));
+      
   
       if (filtroFilme.length > 0) {
         setSuggestedMovies(filtroFilme);
